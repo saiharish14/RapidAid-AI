@@ -1,0 +1,344 @@
+/**
+ * Symptom Checker Page Styles
+ * 
+ * Symptom input form with healthcare theme.
+ * Clean form layout with emergency disclaimer.
+ */
+
+.symptom-checker-page {
+  flex-grow: 1;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+}
+
+.checker-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.disclaimer-banner {
+  display: flex;
+  gap: 1rem;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  border-left: 4px solid #dc2626;
+  align-items: flex-start;
+}
+
+.disclaimer-icon {
+  font-size: 1.5rem;
+  color: #dc2626;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.disclaimer-text {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.checker-form-section {
+  margin-bottom: 4rem;
+}
+
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.symptom-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #475569;
+  resize: vertical;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #475569;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+.gender-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.gender-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  background: white;
+  position: relative;
+}
+
+.gender-option:hover {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.gender-option input[type="radio"] {
+  margin: 0;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  accent-color: #2563eb;
+  width: 16px;
+  height: 16px;
+}
+
+.gender-option input[type="radio"]:checked + .gender-label {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.gender-option:has(input[type="radio"]:checked) {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.gender-label {
+  font-size: 0.95rem;
+  color: #475569;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.severity-options {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.severity-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 2rem;
+  transition: all 0.3s ease;
+  background: white;
+  position: relative;
+}
+
+.severity-option:hover {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.severity-option input[type="radio"] {
+  margin: 0;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  accent-color: #2563eb;
+  width: 16px;
+  height: 16px;
+}
+
+.severity-option input[type="radio"]:checked + .severity-label {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.severity-option:has(input[type="radio"]:checked) {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.severity-label {
+  font-size: 0.95rem;
+  color: #475569;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  margin-top: 1rem;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+}
+
+.button-icon {
+  font-size: 1.25rem;
+}
+
+.button-icon-right {
+  font-size: 1rem;
+}
+
+.info-section {
+  margin-bottom: 4rem;
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.info-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.info-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin: 0 0 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.info-text {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .symptom-checker-page {
+    padding: 3rem 0;
+  }
+
+  .form-container {
+    padding: 2rem;
+  }
+
+  .gender-options,
+  .severity-options {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .gender-option,
+  .severity-option {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .info-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .symptom-checker-page {
+    padding: 2rem 0;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+  }
+
+  .disclaimer-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem;
+  }
+
+  .disclaimer-icon {
+    align-self: center;
+  }
+
+  .submit-button {
+    width: 100%;
+  }
+}
