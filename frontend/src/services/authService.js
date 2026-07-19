@@ -10,7 +10,7 @@
  * - Error handling for authentication failures
  */
 
-const API_BASE_URL = '';
+import { API_BASE_URL } from './apiConfig';
 
 const TOKEN_KEY = 'rapidaid_token';
 const USER_KEY = 'rapidaid_user';

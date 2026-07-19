@@ -4,8 +4,7 @@
  */
 
 import authService from './authService';
-
-const API_BASE_URL = '';
+import { API_BASE_URL } from './apiConfig';
 
 /**
  * Handle authentication errors by clearing session and redirecting to login
