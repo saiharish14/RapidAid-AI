@@ -33,7 +33,15 @@ const register = async (userData) => {
       body: JSON.stringify(userData),
     });
 
-    const data = await response.json();
+    let data;
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      // Surface non-JSON server messages as errors
+      throw new Error(text || 'Registration failed: server returned non-JSON response');
+    }
 
     if (!response.ok) {
       throw new Error(data.message || 'Registration failed');
@@ -63,7 +71,14 @@ const login = async (credentials) => {
       body: JSON.stringify(credentials),
     });
 
-    const data = await response.json();
+    let data;
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      throw new Error(text || 'Login failed: server returned non-JSON response');
+    }
 
     if (!response.ok) {
       throw new Error(data.message || 'Login failed');
@@ -142,7 +157,14 @@ const resetPassword = async (userData) => {
       body: JSON.stringify(userData),
     });
 
-    const data = await response.json();
+    let data;
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      throw new Error(text || 'Reset password failed: server returned non-JSON response');
+    }
 
     if (!response.ok) {
       throw new Error(data.message || 'Reset password failed');
