@@ -3,7 +3,7 @@ Flask Application Configuration
 Main entry point for the RapidAid AI backend API.
 Configures Flask app, CORS, database, and registers blueprints.
 """
-
+import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 from config import bcrypt, jwt
@@ -17,8 +17,10 @@ from database import init_db
 app = Flask(__name__)
 
 # Configure JWT settings before initializing
-app.config['JWT_SECRET_KEY'] = 'your-secret-key-change-in-production'  # Change this in production
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600  # 1 hour expiration
+app.config["JWT_SECRET_KEY"] = os.getenv(
+    "JWT_SECRET_KEY",
+    "your-secret-key-change-in-production"
+)
 
 # Initialize Flask-Bcrypt for password hashing
 bcrypt.init_app(app)
