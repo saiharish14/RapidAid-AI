@@ -103,11 +103,18 @@ def register():
         }), 201
         
     except Exception as e:
+        import traceback
         db.session.rollback()
+        traceback.print_exc()
+        print(f"\n=== REGISTER EXCEPTION ===")
+        print(f"Request data: {request.get_json()}")
+        print(f"Exception: {str(e)}")
+        print(f"Full traceback:\n{traceback.format_exc()}")
+        print(f"===========================\n")
         logger.error(f"Registration error: {str(e)}")
         return jsonify({
             'success': False,
-            'message': 'Registration failed. Please try again.'
+            'error': str(e)
         }), 500
 
 
@@ -127,10 +134,14 @@ def login():
         Error: Invalid credentials
     """
     try:
+        print("STEP 1 - Request received")
         data = request.get_json()
+        print("STEP 2 - JSON parsed")
+        logger.info(f"Login attempt with data: {data}")
         
         # Validate required fields
         if not data or not all(key in data for key in ['email', 'password']):
+            logger.warning("Login failed: Missing required fields")
             return jsonify({
                 'success': False,
                 'message': 'Missing required fields: email, password'
@@ -139,27 +150,64 @@ def login():
         email = data.get('email').lower().strip()
         password = data.get('password')
         
+        print("STEP 3 - User lookup started")
+        logger.info(f"Looking up user with email: {email}")
+        
         # Find user by email
-        user = User.query.filter_by(email=email).first()
+        try:
+            user = User.query.filter_by(email=email).first()
+        except Exception as e:
+            print("FAILED AT STEP 3 - User lookup")
+            print(repr(e))
+            import traceback
+            traceback.print_exc()
+            raise
+        
+        print("STEP 4 - User found" if user else "STEP 4 - User not found")
         
         if not user:
+            logger.warning(f"Login failed: User not found for email: {email}")
             return jsonify({
                 'success': False,
                 'message': 'Invalid email or password'
             }), 401
         
+        logger.info(f"User found: {user.id}, verifying password")
+        
+        print("STEP 5 - Password verification")
         # Verify password
-        if not verify_password(password, user.password_hash):
+        try:
+            password_valid = verify_password(password, user.password_hash)
+        except Exception as e:
+            print("FAILED AT STEP 5 - Password verification")
+            print(repr(e))
+            import traceback
+            traceback.print_exc()
+            raise
+        
+        if not password_valid:
+            logger.warning(f"Login failed: Invalid password for email: {email}")
             return jsonify({
                 'success': False,
                 'message': 'Invalid email or password'
             }), 401
         
+        logger.info(f"Password verified, generating JWT token for user: {user.id}")
+        
+        print("STEP 6 - JWT generation")
         # Generate JWT access token
-        access_token = create_access_token(identity=str(user.id))
+        try:
+            access_token = create_access_token(identity=str(user.id))
+        except Exception as e:
+            print("FAILED AT STEP 6 - JWT generation")
+            print(repr(e))
+            import traceback
+            traceback.print_exc()
+            raise
         
         logger.info(f"User logged in successfully: {email}")
         
+        print("STEP 7 - Returning response")
         # Return token and user data
         return jsonify({
             'success': True,
@@ -175,10 +223,18 @@ def login():
         }), 200
         
     except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"\n=== LOGIN EXCEPTION ===")
+        print(f"Request data: {request.get_json()}")
+        print(f"Exception: {str(e)}")
+        print(f"Full traceback:\n{traceback.format_exc()}")
+        print(f"========================\n")
         logger.error(f"Login error: {str(e)}")
+        logger.error(f"Full traceback: {traceback.format_exc()}")
         return jsonify({
             'success': False,
-            'message': 'Login failed. Please try again.'
+            'error': str(e)
         }), 500
 
 
@@ -194,9 +250,13 @@ def reset_password():
     }
     """
     try:
+        print("STEP A - Request received")
         data = request.get_json()
+        print("STEP B - JSON parsed")
+        logger.info(f"Reset password attempt with data: {data}")
 
         if not data or not all(key in data for key in ['email', 'password']):
+            logger.warning("Reset password failed: Missing required fields")
             return jsonify({
                 'success': False,
                 'message': 'Missing required fields: email, password'
@@ -206,34 +266,76 @@ def reset_password():
         password = data.get('password')
 
         if len(password) < 6:
+            logger.warning("Reset password failed: Password too short")
             return jsonify({
                 'success': False,
                 'message': 'Password must be at least 6 characters'
             }), 400
 
-        user = User.query.filter_by(email=email).first()
+        print("STEP C - User lookup")
+        logger.info(f"Looking up user with email: {email}")
+        try:
+            user = User.query.filter_by(email=email).first()
+        except Exception as e:
+            print("FAILED AT STEP C - User lookup")
+            print(repr(e))
+            import traceback
+            traceback.print_exc()
+            raise
+
+        print("STEP D - User found" if user else "STEP D - User not found")
 
         if not user:
+            logger.warning(f"Reset password failed: User not found for email: {email}")
             return jsonify({
                 'success': False,
                 'message': 'Email not found'
             }), 404
 
-        user.password_hash = hash_password(password)
-        db.session.commit()
+        logger.info(f"User found: {user.id}, hashing new password")
+        
+        print("STEP D - Password hashing")
+        try:
+            user.password_hash = hash_password(password)
+        except Exception as e:
+            print("FAILED AT STEP D - Password hashing")
+            print(repr(e))
+            import traceback
+            traceback.print_exc()
+            raise
+        
+        print("STEP E - Database commit")
+        logger.info(f"Committing password change to database")
+        try:
+            db.session.commit()
+        except Exception as e:
+            print("FAILED AT STEP E - Database commit")
+            print(repr(e))
+            import traceback
+            traceback.print_exc()
+            raise
 
         logger.info(f"Password reset successfully for: {email}")
 
+        print("STEP F - Returning response")
         return jsonify({
             'success': True,
             'message': 'Password updated successfully'
         }), 200
 
     except Exception as e:
+        import traceback
         db.session.rollback()
+        traceback.print_exc()
+        print(f"\n=== RESET PASSWORD EXCEPTION ===")
+        print(f"Request data: {request.get_json()}")
+        print(f"Exception: {str(e)}")
+        print(f"Full traceback:\n{traceback.format_exc()}")
+        print(f"===============================\n")
         logger.error(f"Reset password error: {str(e)}")
+        logger.error(f"Full traceback: {traceback.format_exc()}")
         return jsonify({
             'success': False,
-            'message': 'Failed to reset password. Please try again.'
+            'error': str(e)
         }), 500
 

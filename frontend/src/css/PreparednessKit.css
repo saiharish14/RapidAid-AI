@@ -1,0 +1,505 @@
+/**
+ * Preparedness Kit Page Styles
+ * 
+ * Modern healthcare-themed interface for emergency preparedness checklist.
+ * Phase 1 – Lesson 1.4 implementation.
+ */
+
+.preparedness-kit-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #F8FBFF 0%, #EDF5FC 100%);
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Back to Home Button */
+.back-to-home-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+}
+
+.back-to-home-button:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.back-to-home-button:active {
+  transform: translateY(0);
+}
+
+.back-icon {
+  font-size: 1rem;
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-icon {
+  font-size: 3rem;
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Readiness Status Section */
+.readiness-status-section {
+  margin-bottom: 3rem;
+  animation: slideUp 0.5s ease 0.1s backwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.readiness-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+.readiness-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.readiness-icon {
+  font-size: 2rem;
+}
+
+.readiness-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.readiness-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.completion-circle {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+}
+
+.circular-chart {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #e2e8f0;
+  stroke-width: 2.5;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.5s ease;
+}
+
+.percentage {
+  fill: #1e293b;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 0.5em;
+  text-anchor: middle;
+}
+
+.readiness-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.readiness-level {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.readiness-description {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+}
+
+/* Checklist Section */
+.checklist-section {
+  margin-bottom: 3rem;
+  animation: slideUp 0.5s ease 0.2s backwards;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.section-icon {
+  font-size: 1.75rem;
+  color: #2563eb;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  flex: 1;
+}
+
+.saving-indicator {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-family: 'Poppins', sans-serif;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.checklist-category {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.checklist-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 1rem 0;
+  font-family: 'Poppins', sans-serif;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.checklist-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.75rem;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.checklist-item:hover {
+  background-color: #f1f5f9;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-custom {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 0.25rem;
+  background-color: white;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.checkbox-input:checked + .checkbox-custom {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: 0.1rem;
+  width: 0.25rem;
+  height: 0.5rem;
+  border: solid white;
+  border-width: 0 0.15rem 0.15rem 0;
+  transform: rotate(45deg);
+}
+
+.item-label {
+  font-size: 1rem;
+  color: #475569;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.2s ease;
+}
+
+.checkbox-input:checked ~ .item-label {
+  color: #1e293b;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Safety Tips Section */
+.safety-tips-section {
+  margin-bottom: 3rem;
+  animation: slideUp 0.5s ease 0.3s backwards;
+}
+
+.tips-card {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #fcd34d;
+}
+
+.tips-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tips-icon {
+  font-size: 1.75rem;
+  color: #d97706;
+}
+
+.tips-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #92400e;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  flex: 1;
+}
+
+.refresh-tips-button {
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #92400e;
+  font-size: 1rem;
+}
+
+.refresh-tips-button:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: rotate(180deg);
+}
+
+.tips-content {
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.tip-text {
+  font-size: 1.125rem;
+  color: #92400e;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.fade-in {
+  animation: fadeInTip 0.5s ease;
+}
+
+@keyframes fadeInTip {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Disclaimer Banner */
+.disclaimer-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  animation: slideUp 0.5s ease 0.4s backwards;
+}
+
+.disclaimer-icon {
+  font-size: 1.5rem;
+  color: #dc2626;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.disclaimer-banner p {
+  font-size: 0.95rem;
+  color: #991b1b;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .readiness-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .completion-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .checklist-items {
+    grid-template-columns: 1fr;
+  }
+
+  .tips-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .tip-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .preparedness-kit-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .page-icon {
+    font-size: 2.5rem;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .readiness-card,
+  .tips-card {
+    padding: 1.5rem;
+  }
+
+  .readiness-header,
+  .tips-header {
+    gap: 0.75rem;
+  }
+
+  .disclaimer-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .disclaimer-icon {
+    align-self: center;
+  }
+}

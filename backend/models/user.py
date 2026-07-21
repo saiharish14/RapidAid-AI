@@ -78,6 +78,24 @@ class User(db.Model):
         cascade='all, delete-orphan'
     )
     
+    # One-to-One relationship with MedicalID
+    # A user can have one medical ID record
+    medical_id = db.relationship(
+        'MedicalID',
+        backref='user',
+        uselist=False,
+        cascade='all, delete-orphan'
+    )
+    
+    # One-to-One relationship with PreparednessKit
+    # A user can have one preparedness kit record
+    preparedness_kit = db.relationship(
+        'PreparednessKit',
+        backref='user',
+        uselist=False,
+        cascade='all, delete-orphan'
+    )
+    
     def __repr__(self):
         """String representation of the User model."""
         return f'<User {self.email}>'

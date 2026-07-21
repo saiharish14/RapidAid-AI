@@ -11,6 +11,8 @@ from routes.health import health_bp
 from routes.analyze import analyze_bp
 from routes.reports import reports_bp
 from routes.auth import auth_bp
+from routes.medical_id import medical_id_bp
+from routes.preparedness_kit import preparedness_kit_bp
 from database import init_db
 
 # Initialize Flask application
@@ -39,6 +41,8 @@ app.register_blueprint(health_bp)
 app.register_blueprint(analyze_bp)
 app.register_blueprint(reports_bp)
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
+app.register_blueprint(medical_id_bp)
+app.register_blueprint(preparedness_kit_bp)
 
 
 @app.route('/', methods=['GET'])

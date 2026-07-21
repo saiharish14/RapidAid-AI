@@ -47,7 +47,7 @@ def init_db(app):
     
     # Import models to ensure SQLAlchemy discovers them
     # This must be done before create_all() is called
-    from models import AIReport, User
+    from models import AIReport, User, MedicalID, PreparednessKit
     
     # Create all tables (will be used when models are defined)
     with app.app_context():

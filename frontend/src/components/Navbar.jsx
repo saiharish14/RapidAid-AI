@@ -7,7 +7,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaHeartbeat, FaSignOutAlt, FaUser, FaChevronDown } from 'react-icons/fa';
+import { FaBars, FaTimes, FaHeartbeat, FaSignOutAlt, FaUser, FaChevronDown, FaIdCard, FaBoxOpen } from 'react-icons/fa';
 import { useAuth } from '../contexts/AuthContext';
 import { createHomeNavigation, scrollToSection, SCROLL_TARGETS } from '../utils/scrollNavigation';
 import '../css/Navbar.css';
@@ -70,6 +70,12 @@ function Navbar() {
     if (event) event.preventDefault();
     closeMobileMenu();
     navigate('/symptom-checker');
+  };
+
+  const handleEmergencyNavigation = (event) => {
+    if (event) event.preventDefault();
+    closeMobileMenu();
+    navigate('/emergency-sos');
   };
 
   useEffect(() => {
@@ -174,7 +180,7 @@ function Navbar() {
             {isAuthenticated ? (
               <>
                 {/* Emergency Button */}
-                <button type="button" className="emergency-button" onClick={handleAnalyzeNavigation}>
+                <button type="button" className="emergency-button" onClick={handleEmergencyNavigation}>
                   <FaHeartbeat className="emergency-icon" />
                   <span>Emergency</span>
                 </button>
@@ -205,6 +211,22 @@ function Navbar() {
                       >
                         <FaUser className="dropdown-item-icon" />
                         <span>My Reports</span>
+                      </Link>
+                      <Link 
+                        to="/medical-id" 
+                        className="dropdown-item"
+                        onClick={() => setShowProfileDropdown(false)}
+                      >
+                        <FaIdCard className="dropdown-item-icon" />
+                        <span>Medical ID</span>
+                      </Link>
+                      <Link 
+                        to="/preparedness-kit" 
+                        className="dropdown-item"
+                        onClick={() => setShowProfileDropdown(false)}
+                      >
+                        <FaBoxOpen className="dropdown-item-icon" />
+                        <span>Preparedness Kit</span>
                       </Link>
                       <button 
                         className="dropdown-item dropdown-item-danger"
@@ -244,7 +266,13 @@ function Navbar() {
                 <Link to="/reports" className={`navbar-link ${isActive('/reports') ? 'active' : ''}`} onClick={closeMobileMenu}>Reports</Link>
               </li>
               <li className="navbar-item">
-                <button type="button" className="emergency-button mobile-emergency" onClick={handleAnalyzeNavigation}>
+                <Link to="/medical-id" className={`navbar-link ${isActive('/medical-id') ? 'active' : ''}`} onClick={closeMobileMenu}>Medical ID</Link>
+              </li>
+              <li className="navbar-item">
+                <Link to="/preparedness-kit" className={`navbar-link ${isActive('/preparedness-kit') ? 'active' : ''}`} onClick={closeMobileMenu}>Preparedness Kit</Link>
+              </li>
+              <li className="navbar-item">
+                <button type="button" className="emergency-button mobile-emergency" onClick={handleEmergencyNavigation}>
                   <FaHeartbeat className="emergency-icon" />
                   <span>Emergency</span>
                 </button>

@@ -17,6 +17,9 @@ import Reports from './pages/Reports';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ResetPassword from './pages/ResetPassword';
+import EmergencySOS from './pages/EmergencySOS';
+import MedicalID from './pages/MedicalID';
+import PreparednessKit from './pages/PreparednessKit';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -31,6 +34,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/emergency-sos" element={<EmergencySOS />} />
           <Route path="/symptom-checker" element={
             <ProtectedRoute>
               <SymptomChecker />
@@ -49,6 +53,16 @@ function App() {
           <Route path="/reports" element={
             <ProtectedRoute>
               <Reports />
+            </ProtectedRoute>
+          } />
+          <Route path="/medical-id" element={
+            <ProtectedRoute>
+              <MedicalID />
+            </ProtectedRoute>
+          } />
+          <Route path="/preparedness-kit" element={
+            <ProtectedRoute>
+              <PreparednessKit />
             </ProtectedRoute>
           } />
           <Route path="*" element={<NotFound />} />
