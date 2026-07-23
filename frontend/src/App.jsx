@@ -21,6 +21,8 @@ import EmergencySOS from './pages/EmergencySOS';
 import MedicalID from './pages/MedicalID';
 import PreparednessKit from './pages/PreparednessKit';
 import DisasterAlerts from './pages/DisasterAlerts';
+import EmergencyServices from './pages/EmergencyServices';
+import SmartEmergencyContacts from './pages/SmartEmergencyContacts';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -69,6 +71,16 @@ function App() {
           <Route path="/disaster-alerts" element={
             <ProtectedRoute>
               <DisasterAlerts />
+            </ProtectedRoute>
+          } />
+          <Route path="/emergency-services" element={
+            <ProtectedRoute>
+              <EmergencyServices />
+            </ProtectedRoute>
+          } />
+          <Route path="/smart-contacts" element={
+            <ProtectedRoute>
+              <SmartEmergencyContacts />
             </ProtectedRoute>
           } />
           <Route path="*" element={<NotFound />} />

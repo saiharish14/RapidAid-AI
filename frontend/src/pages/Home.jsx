@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import SectionTitle from '../components/SectionTitle';
 import FeatureCard from '../components/FeatureCard';
-import { FaHeartbeat, FaClock, FaShieldAlt, FaUserMd, FaBrain, FaMobileAlt, FaExclamationTriangle, FaIdCard, FaBoxOpen, FaBell } from 'react-icons/fa';
+import { FaHeartbeat, FaClock, FaShieldAlt, FaUserMd, FaBrain, FaMobileAlt, FaExclamationTriangle, FaIdCard, FaBoxOpen, FaBell, FaLocationArrow, FaPhone } from 'react-icons/fa';
 import { scrollToSection, SCROLL_TARGETS } from '../utils/scrollNavigation';
 import '../css/Home.css';
 
@@ -81,6 +81,18 @@ function Home() {
       title: 'Disaster Alerts',
       description: 'Stay informed about emergencies and natural disasters in your area with real-time alerts.',
       onClick: () => navigate('/disaster-alerts')
+    },
+    {
+      icon: <FaLocationArrow />,
+      title: 'Nearby Emergency Services',
+      description: 'Find hospitals, police, fire stations, and pharmacies near you with navigation and call options.',
+      onClick: () => navigate('/emergency-services')
+    },
+    {
+      icon: <FaPhone />,
+      title: 'Smart Emergency Contacts',
+      description: 'Quick access to your emergency contacts with one-tap call and SOS messaging.',
+      onClick: () => navigate('/smart-contacts')
     }
   ];
 

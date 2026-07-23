@@ -9,7 +9,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from services.validation import validate_request_data
 from services.response_formatter import success_response, validation_response, error_response
 from services.ai_prompt import get_analysis_prompt
-from services.gemini_service import analyze_medical_case
+from services.gemini_service import analyze_medical_case, calculate_confidence_from_triage
 from services.report_service import save_ai_report
 import logging
 import traceback
@@ -120,10 +120,11 @@ def analyze_symptoms():
             ai_data = ai_result.get("data", {})
             logger.info(f"Saving report to database for user_id: {user_id}")
             
-            # Add confidence if not present in AI response (use default)
-            if 'confidence' not in ai_data:
-                ai_data['confidence'] = 85  # Default confidence score
-                logger.info("Added default confidence score")
+            # Add confidence if not present in AI response (calculate from triage level)
+            if 'confidence' not in ai_data or ai_data['confidence'] is None:
+                triage_level = ai_data.get('triageLevel', ai_data.get('severity', 'moderate'))
+                ai_data['confidence'] = calculate_confidence_from_triage(triage_level)
+                logger.info(f"Calculated confidence {ai_data['confidence']} from triage level {triage_level}")
             
             saved_report = save_ai_report(symptoms, ai_data, user_id=user_id)
             logger.info(f"AI report saved with ID: {saved_report.id} for user: {user_id}")

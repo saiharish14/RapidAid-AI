@@ -367,6 +367,35 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1920px) {
+  .auth-container {
+    max-width: 1100px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .auth-container {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .auth-container {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .auth-container {
+    max-width: 800px;
+    padding: 1.5rem;
+  }
+
+  .auth-card {
+    max-width: 400px;
+  }
+}
+
 @media (max-width: 968px) {
   .auth-container {
     grid-template-columns: 1fr;
@@ -395,13 +424,24 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 820px) {
+  .auth-container {
+    max-width: 450px;
+  }
+
+  .auth-card {
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 768px) {
   .auth-container {
     padding: 1rem;
   }
 
   .auth-card {
     padding: 2rem 1.5rem;
+    max-width: 100%;
   }
 
   .branding-subtitle {
@@ -411,18 +451,125 @@
   .branding-description {
     font-size: 1rem;
   }
+}
+
+@media (max-width: 414px) {
+  .auth-container {
+    padding: 0.85rem;
+  }
+
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  .branding-subtitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .auth-container {
+    padding: 0.75rem;
+  }
+
+  .auth-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .branding-icon {
+    font-size: 2rem;
+  }
+
+  .branding-title {
+    font-size: 1.75rem;
+  }
+
+  .auth-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .auth-container {
+    padding: 0.65rem;
+  }
+
+  .auth-card {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .branding-subtitle {
+    font-size: 1.35rem;
+  }
+
+  .branding-description {
+    font-size: 0.9rem;
+  }
+
+  .form-group input {
+    padding: 0.75rem 2.75rem 0.75rem 2.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .auth-container {
+    padding: 0.5rem;
+  }
+
+  .auth-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .branding-icon {
+    font-size: 1.75rem;
+  }
+
+  .branding-title {
+    font-size: 1.5rem;
+  }
+
+  .branding-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .branding-description {
+    font-size: 0.875rem;
+  }
+
+  .auth-title {
+    font-size: 1.25rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .form-group input {
+    padding: 0.7rem 2.5rem 0.7rem 2.25rem;
+    font-size: 0.9rem;
+  }
+
+  .auth-submit-btn {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
 
   .floating-icon {
     font-size: 1.25rem;
   }
 
   .blur-circle-1 {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 
   .blur-circle-2 {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
 }

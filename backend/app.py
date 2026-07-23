@@ -13,6 +13,8 @@ from routes.reports import reports_bp
 from routes.auth import auth_bp
 from routes.medical_id import medical_id_bp
 from routes.preparedness_kit import preparedness_kit_bp
+from routes.disaster_alerts import disaster_bp
+from routes.emergency_services import emergency_bp
 from database import init_db
 
 # Initialize Flask application
@@ -43,6 +45,8 @@ app.register_blueprint(reports_bp)
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 app.register_blueprint(medical_id_bp)
 app.register_blueprint(preparedness_kit_bp)
+app.register_blueprint(disaster_bp, url_prefix='/api')
+app.register_blueprint(emergency_bp, url_prefix='/api')
 
 
 @app.route('/', methods=['GET'])

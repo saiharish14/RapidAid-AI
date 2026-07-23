@@ -5,10 +5,16 @@
  * Phase 1 – Lesson 1.4 implementation.
  */
 
-.preparedness-kit-page {
+.page {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+}
+
+.preparedness-kit-page {
+  flex-grow: 1;
   background: linear-gradient(135deg, #F8FBFF 0%, #EDF5FC 100%);
-  padding: 2rem 1rem;
+  padding: 4rem 1rem 2rem 1rem;
   position: relative;
   z-index: 1;
 }
@@ -16,39 +22,7 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  position: relative;
-}
-
-/* Back to Home Button */
-.back-to-home-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
-}
-
-.back-to-home-button:hover {
-  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-}
-
-.back-to-home-button:active {
-  transform: translateY(0);
-}
-
-.back-icon {
-  font-size: 1rem;
+  padding: 0 2rem;
 }
 
 /* Page Header */
@@ -443,7 +417,57 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1920px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .container {
+    max-width: 1100px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    max-width: 1000px;
+    padding: 0 1.5rem;
+  }
+
+  .checklist-items {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 968px) {
+  .checklist-items {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .checklist-items {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.6rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .preparedness-kit-page {
+    padding: 3rem 0.5rem 1.5rem 0.5rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
   .page-title {
     font-size: 2rem;
   }
@@ -469,24 +493,34 @@
   .tip-text {
     font-size: 1rem;
   }
+
+  .readiness-card,
+  .tips-card,
+  .disclaimer-banner {
+    padding: 1.5rem;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 414px) {
   .preparedness-kit-page {
-    padding: 1rem 0.5rem;
+    padding: 2.5rem 0.5rem 1.5rem 0.5rem;
   }
 
-  .page-icon {
-    font-size: 2.5rem;
+  .container {
+    padding: 0 0.85rem;
   }
 
   .page-title {
     font-size: 1.75rem;
   }
 
+  .page-subtitle {
+    font-size: 1rem;
+  }
+
   .readiness-card,
   .tips-card {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
   .readiness-header,
@@ -494,12 +528,111 @@
     gap: 0.75rem;
   }
 
-  .disclaimer-banner {
-    flex-direction: column;
-    text-align: center;
+  .readiness-icon {
+    font-size: 1.75rem;
   }
 
-  .disclaimer-icon {
-    align-self: center;
+  .tips-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .readiness-card,
+  .tips-card {
+    padding: 1.125rem;
+  }
+
+  .category-title {
+    font-size: 1.1rem;
+  }
+
+  .checklist-item {
+    padding: 0.6rem;
+  }
+
+  .item-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .page-icon {
+    font-size: 2.5rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .readiness-card,
+  .tips-card,
+  .disclaimer-banner {
+    padding: 1rem;
+  }
+
+  .completion-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .completion-percentage {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .preparedness-kit-page {
+    padding: 2rem 0.5rem 1.5rem 0.5rem;
+  }
+
+  .container {
+    padding: 0 0.65rem;
+  }
+
+  .page-icon {
+    font-size: 2.25rem;
+  }
+
+  .page-title {
+    font-size: 1.35rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .readiness-card,
+  .tips-card,
+  .disclaimer-banner {
+    padding: 0.875rem;
+  }
+
+  .readiness-icon {
+    font-size: 1.5rem;
+  }
+
+  .tips-icon {
+    font-size: 1.35rem;
+  }
+
+  .category-title {
+    font-size: 1rem;
+  }
+
+  .tip-text {
+    font-size: 0.9rem;
+  }
+
+  .disclaimer-banner p {
+    font-size: 0.875rem;
   }
 }

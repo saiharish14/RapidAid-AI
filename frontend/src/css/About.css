@@ -110,18 +110,71 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1920px) {
   .about-page {
-    padding: 3rem 0;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1440px) {
+  .about-page {
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .about-page {
+    max-width: 1100px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about-page {
+    max-width: 1000px;
+    padding: 3rem 1.5rem;
   }
 
-  .about-intro,
-  .about-text {
-    font-size: 1rem;
+  .values-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 968px) {
+  .values-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .values-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 2.5rem 1rem;
+  }
+
+  .about-hero {
+    margin-bottom: 3rem;
+  }
+
+  .about-intro {
+    font-size: 1.1rem;
+  }
+
+  .about-section {
+    margin-bottom: 3rem;
   }
 
   .section-heading {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
   }
 
   .values-grid {
@@ -133,12 +186,118 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 414px) {
   .about-page {
-    padding: 2rem 0;
+    padding: 2rem 0.85rem;
+  }
+
+  .about-hero {
+    margin-bottom: 2.5rem;
+  }
+
+  .about-intro {
+    font-size: 1rem;
+  }
+
+  .section-heading {
+    font-size: 1.5rem;
+  }
+
+  .about-text {
+    font-size: 0.95rem;
   }
 
   .value-card {
     padding: 1.5rem;
+  }
+
+  .value-icon {
+    font-size: 2rem;
+  }
+
+  .value-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .about-page {
+    padding: 1.75rem 0.75rem;
+  }
+
+  .section-heading {
+    font-size: 1.4rem;
+  }
+
+  .value-card {
+    padding: 1.25rem;
+  }
+
+  .value-icon {
+    font-size: 1.75rem;
+  }
+
+  .value-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .about-page {
+    padding: 1.5rem 0.65rem;
+  }
+
+  .about-intro {
+    font-size: 0.95rem;
+  }
+
+  .section-heading {
+    font-size: 1.3rem;
+  }
+
+  .about-text {
+    font-size: 0.9rem;
+  }
+
+  .value-card {
+    padding: 1.125rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .about-page {
+    padding: 1.25rem 0.5rem;
+  }
+
+  .about-hero {
+    margin-bottom: 2rem;
+  }
+
+  .about-intro {
+    font-size: 0.9rem;
+  }
+
+  .section-heading {
+    font-size: 1.2rem;
+  }
+
+  .about-text {
+    font-size: 0.875rem;
+  }
+
+  .value-card {
+    padding: 1rem;
+  }
+
+  .value-icon {
+    font-size: 1.5rem;
+  }
+
+  .value-title {
+    font-size: 1rem;
+  }
+
+  .value-description {
+    font-size: 0.85rem;
   }
 }

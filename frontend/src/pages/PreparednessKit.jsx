@@ -7,8 +7,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaBoxOpen, FaLightbulb, FaSync, FaArrowLeft, FaExclamationTriangle } from 'react-icons/fa';
+import { FaBoxOpen, FaLightbulb, FaSync, FaExclamationTriangle } from 'react-icons/fa';
 import { useAuth } from '../contexts/AuthContext';
+import Navbar from '../components/Navbar';
 import { getPreparednessKit, createPreparednessKit, updatePreparednessKit } from '../services/preparednessKitService';
 import '../css/PreparednessKit.css';
 
@@ -121,17 +122,15 @@ function PreparednessKit() {
 
 
   return (
-    <div className="preparedness-kit-page">
-      <div className="container">
-        <button className="back-to-home-button" onClick={() => navigate('/')}>
-          <FaArrowLeft className="back-icon" />
-          <span>Back to Home</span>
-        </button>
-        <div className="page-header">
-          <FaBoxOpen className="page-icon" />
-          <h1 className="page-title">Emergency Preparedness Kit</h1>
-          <p className="page-subtitle">Track your emergency supplies and stay prepared</p>
-        </div>
+    <div className="page">
+      <Navbar />
+      <div className="preparedness-kit-page">
+        <div className="container">
+          <div className="page-header">
+            <FaBoxOpen className="page-icon" />
+            <h1 className="page-title">Emergency Preparedness Kit</h1>
+            <p className="page-subtitle">Track your emergency supplies and stay prepared</p>
+          </div>
 
         {/* Emergency Kit Checklist */}
         <section className="checklist-section">
@@ -221,6 +220,7 @@ function PreparednessKit() {
             Regularly review and update your emergency preparedness kit. 
             Replace expired items and ensure all supplies are in good condition.
           </p>
+        </div>
         </div>
       </div>
     </div>

@@ -952,7 +952,80 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1920px) {
+  .hero-content {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .hero-content {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .hero-content {
+    max-width: 750px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-content {
+    max-width: 700px;
+  }
+
+  .sos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 968px) {
+  .sos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .hero-content {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .sos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  .emergency-hero {
+    padding: 3rem 1.5rem;
+  }
+
+  .back-to-home-button {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .hero-icon-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .sos-grid {
+    grid-template-columns: 1fr;
+  }
+
   .assistant-modal {
     max-width: 100%;
     margin: 0 1rem;
@@ -986,100 +1059,175 @@
   .result-footer {
     flex-direction: column;
   }
-
-  .back-to-home-button {
-    top: 1rem;
-    left: 1rem;
-    padding: 0.625rem 1rem;
-    font-size: 0.85rem;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-
-  .emergency-calls-section,
-  .first-aid-section,
-  .emergency-disclaimer-section {
-    padding: 2rem 1rem;
-  }
-
-  .emergency-calls-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .guides-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cta-card {
-    flex-direction: column;
-    text-align: center;
-    padding: 2rem 1.5rem;
-  }
-
-  .cta-content {
-    flex-direction: column;
-  }
-
-  .cta-button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .disclaimer-banner {
-    flex-direction: column;
-    padding: 1.5rem;
-  }
-
-  .modal-header {
-    padding: 1.5rem;
-  }
-
-  .modal-body {
-    padding: 1.5rem;
-  }
-
-  .modal-footer {
-    padding: 1rem 1.5rem;
-  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 414px) {
   .emergency-hero {
-    padding: 3rem 1rem;
+    padding: 2.5rem 1rem;
+  }
+
+  .back-to-home-button {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .hero-icon-wrapper {
+    width: 60px;
+    height: 60px;
   }
 
   .hero-title {
     font-size: 1.75rem;
   }
 
-  .hero-icon-wrapper {
-    width: 64px;
-    height: 64px;
+  .hero-subtitle {
+    font-size: 0.95rem;
   }
 
-  .hero-icon {
-    font-size: 2rem;
+  .sos-section {
+    padding: 2rem 1rem;
   }
 
-  .section-title {
+  .sos-card {
+    padding: 1.5rem;
+  }
+
+  .sos-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sos-icon {
     font-size: 1.5rem;
   }
 
-  .emergency-call-button {
+  .sos-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .sos-card {
     padding: 1.25rem;
   }
 
-  .call-number {
+  .sos-icon-wrapper {
+    width: 55px;
+    height: 55px;
+  }
+
+  .sos-title {
+    font-size: 1rem;
+  }
+
+  .sos-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .emergency-hero {
+    padding: 2rem 0.85rem;
+  }
+
+  .back-to-home-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-icon-wrapper {
+    width: 55px;
+    height: 55px;
+  }
+
+  .hero-title {
     font-size: 1.5rem;
   }
 
-  .guide-card {
-    padding: 1.5rem;
+  .sos-section {
+    padding: 1.75rem 0.85rem;
+  }
+
+  .sos-card {
+    padding: 1.125rem;
+  }
+
+  .sos-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    font-size: 1.35rem;
+  }
+
+  .sos-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .emergency-hero {
+    padding: 1.75rem 0.75rem;
+  }
+
+  .back-to-home-button {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.7rem;
+  }
+
+  .hero-icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+
+  .hero-title {
+    font-size: 1.35rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .sos-section {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .sos-card {
+    padding: 1rem;
+  }
+
+  .sos-icon-wrapper {
+    width: 45px;
+    height: 45px;
+    font-size: 1.25rem;
+  }
+
+  .sos-title {
+    font-size: 0.95rem;
+  }
+
+  .sos-description {
+    font-size: 0.875rem;
+  }
+
+  .sos-button {
+    padding: 0.65rem 0.875rem;
+    font-size: 0.85rem;
+  }
+
+  .assistant-body {
+    padding: 1.25rem;
+  }
+
+  .question-text {
+    font-size: 1rem;
+  }
+
+  .answer-button {
+    padding: 0.875rem;
+    font-size: 0.9rem;
   }
 }

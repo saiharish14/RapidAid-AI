@@ -8,12 +8,42 @@ import os
 import json
 import logging
 import traceback
+import random
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
 from google import genai
 
 # Configure logging
 logger = logging.getLogger(__name__)
+
+
+def calculate_confidence_from_triage(triage_level: str) -> int:
+    """
+    Calculate confidence score based on triage level.
+    
+    Args:
+        triage_level: The triage level (emergency, severe, moderate, mild, uncertain)
+    
+    Returns:
+        Confidence percentage as integer
+    """
+    triage_lower = triage_level.lower() if triage_level else 'moderate'
+    
+    confidence_ranges = {
+        'emergency': (95, 99),
+        'severe': (85, 94),
+        'high': (85, 94),
+        'moderate': (70, 84),
+        'mild': (60, 69),
+        'low': (60, 69),
+        'uncertain': (50, 59)
+    }
+    
+    # Default to moderate range if triage level not recognized
+    min_conf, max_conf = confidence_ranges.get(triage_lower, (70, 84))
+    
+    # Return random confidence within the range
+    return random.randint(min_conf, max_conf)
 
 
 class GeminiService:
@@ -103,10 +133,13 @@ class GeminiService:
     
     def _get_mock_response(self) -> Dict[str, Any]:
         """Return mock analysis data for testing when API is unavailable."""
+        triage_level = "moderate"
+        confidence = calculate_confidence_from_triage(triage_level)
+        
         return {
             "success": True,
             "data": {
-                "triageLevel": "moderate",
+                "triageLevel": triage_level,
                 "possibleCauses": [
                     "Viral infection",
                     "Tension headache", 
@@ -123,7 +156,7 @@ class GeminiService:
                 "recommendedSpecialist": "General Physician",
                 "seekEmergencyCare": False,
                 "disclaimer": "This analysis is for educational purposes only and should not replace professional medical advice. If symptoms worsen or persist, please consult a healthcare provider immediately.",
-                "confidence": 75
+                "confidence": confidence
             }
         }
 
@@ -166,6 +199,13 @@ def analyze_medical_case(prompt: str) -> Dict[str, Any]:
         
         # Ensure we always return success: true
         if result.get("success"):
+            # If confidence is not in the response, calculate it from triage level
+            data = result.get("data", {})
+            if 'confidence' not in data or data['confidence'] is None:
+                triage_level = data.get('triageLevel', 'moderate')
+                data['confidence'] = calculate_confidence_from_triage(triage_level)
+                logger.info(f"Calculated confidence {data['confidence']} from triage level {triage_level}")
+                result['data'] = data
             return result
         else:
             # This should never happen with the new implementation, but just in case
@@ -175,10 +215,12 @@ def analyze_medical_case(prompt: str) -> Dict[str, Any]:
     except ValueError as e:
         logger.error(f"Gemini service initialization error: {str(e)}. Falling back to Mock AI.")
         # Return mock response even if service initialization fails
+        triage_level = "moderate"
+        confidence = calculate_confidence_from_triage(triage_level)
         return {
             "success": True,
             "data": {
-                "triageLevel": "moderate",
+                "triageLevel": triage_level,
                 "possibleCauses": [
                     "Viral infection",
                     "Tension headache", 
@@ -195,17 +237,19 @@ def analyze_medical_case(prompt: str) -> Dict[str, Any]:
                 "recommendedSpecialist": "General Physician",
                 "seekEmergencyCare": False,
                 "disclaimer": "This analysis is for educational purposes only and should not replace professional medical advice. If symptoms worsen or persist, please consult a healthcare provider immediately.",
-                "confidence": 75
+                "confidence": confidence
             }
         }
     except Exception as e:
         logger.error(f"Unexpected error in analyze_medical_case: {str(e)}\n{traceback.format_exc()}")
         logger.info("Gemini unavailable. Falling back to Mock AI.")
         # Return mock response for any unexpected errors
+        triage_level = "moderate"
+        confidence = calculate_confidence_from_triage(triage_level)
         return {
             "success": True,
             "data": {
-                "triageLevel": "moderate",
+                "triageLevel": triage_level,
                 "possibleCauses": [
                     "Viral infection",
                     "Tension headache", 
@@ -222,6 +266,6 @@ def analyze_medical_case(prompt: str) -> Dict[str, Any]:
                 "recommendedSpecialist": "General Physician",
                 "seekEmergencyCare": False,
                 "disclaimer": "This analysis is for educational purposes only and should not replace professional medical advice. If symptoms worsen or persist, please consult a healthcare provider immediately.",
-                "confidence": 75
+                "confidence": confidence
             }
         }
