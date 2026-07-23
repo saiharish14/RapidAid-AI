@@ -9,12 +9,61 @@ from models.user import User
 from database.db import db
 from services.auth_service import hash_password, verify_password
 import logging
+import re
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 # Create Blueprint for authentication routes
 auth_bp = Blueprint('auth', __name__)
+
+
+def validate_password(password):
+    """
+    Validate password strength using regular expressions.
+    
+    Requirements:
+    - Minimum 8 characters
+    - At least one uppercase letter
+    - At least one lowercase letter
+    - At least two numbers
+    - At least one special character
+    - No spaces allowed
+    
+    Args:
+        password (str): The password to validate
+    
+    Returns:
+        tuple: (bool, str) where bool indicates validity and str contains error message if invalid
+    """
+    if not password:
+        return False, "Password is required"
+    
+    # Check minimum length
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long"
+    
+    # Check for spaces
+    if ' ' in password:
+        return False, "Password must not contain spaces"
+    
+    # Check for at least one uppercase letter
+    if not re.search(r'[A-Z]', password):
+        return False, "Password must contain at least one uppercase letter"
+    
+    # Check for at least one lowercase letter
+    if not re.search(r'[a-z]', password):
+        return False, "Password must contain at least one lowercase letter"
+    
+    # Check for at least two numbers
+    if len(re.findall(r'\d', password)) < 2:
+        return False, "Password must contain at least two numbers"
+    
+    # Check for at least one special character
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        return False, "Password must contain at least one special character"
+    
+    return True, ""
 
 
 @auth_bp.route('/register', methods=['POST'])
@@ -60,10 +109,12 @@ def register():
                 'message': 'Email must be between 5 and 120 characters'
             }), 400
         
-        if len(password) < 6:
+        # Validate password strength
+        is_valid, error_message = validate_password(password)
+        if not is_valid:
             return jsonify({
                 'success': False,
-                'message': 'Password must be at least 6 characters'
+                'message': error_message
             }), 400
         
         # Check if email already exists
@@ -265,11 +316,12 @@ def reset_password():
         email = data.get('email').lower().strip()
         password = data.get('password')
 
-        if len(password) < 6:
-            logger.warning("Reset password failed: Password too short")
+        # Validate password strength
+        is_valid, error_message = validate_password(password)
+        if not is_valid:
             return jsonify({
                 'success': False,
-                'message': 'Password must be at least 6 characters'
+                'message': error_message
             }), 400
 
         print("STEP C - User lookup")
