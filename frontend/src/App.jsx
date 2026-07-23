@@ -20,6 +20,7 @@ import ResetPassword from './pages/ResetPassword';
 import EmergencySOS from './pages/EmergencySOS';
 import MedicalID from './pages/MedicalID';
 import PreparednessKit from './pages/PreparednessKit';
+import DisasterAlerts from './pages/DisasterAlerts';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -63,6 +64,11 @@ function App() {
           <Route path="/preparedness-kit" element={
             <ProtectedRoute>
               <PreparednessKit />
+            </ProtectedRoute>
+          } />
+          <Route path="/disaster-alerts" element={
+            <ProtectedRoute>
+              <DisasterAlerts />
             </ProtectedRoute>
           } />
           <Route path="*" element={<NotFound />} />

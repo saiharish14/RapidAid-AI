@@ -36,6 +36,7 @@
 
 .why-choose-section,
 .features-section,
+.emergency-features-section,
 .how-it-works-section,
 .emergency-disclaimer-section {
   width: 100%;
@@ -325,5 +326,110 @@
 
   .step-number {
     font-size: 3rem;
+  }
+}
+
+/* Emergency Features Section */
+.emergency-features-section {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8fbff 0%, #edf5fc 100%);
+}
+
+.emergency-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.emergency-feature-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.emergency-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: #2563eb;
+}
+
+.emergency-feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.emergency-feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 0.75rem 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.emergency-feature-description {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.emergency-feature-arrow {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  color: #2563eb;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.emergency-feature-card:hover .emergency-feature-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .emergency-features-section {
+    padding: 3rem 0;
+  }
+
+  .emergency-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .emergency-feature-card {
+    padding: 1.5rem;
+  }
+
+  .emergency-feature-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  .emergency-feature-title {
+    font-size: 1.1rem;
+  }
+
+  .emergency-feature-description {
+    font-size: 0.9rem;
   }
 }

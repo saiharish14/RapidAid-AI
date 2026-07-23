@@ -6,18 +6,19 @@
  */
 
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import SectionTitle from '../components/SectionTitle';
 import FeatureCard from '../components/FeatureCard';
-import { FaHeartbeat, FaClock, FaShieldAlt, FaUserMd, FaBrain, FaMobileAlt, FaExclamationTriangle } from 'react-icons/fa';
+import { FaHeartbeat, FaClock, FaShieldAlt, FaUserMd, FaBrain, FaMobileAlt, FaExclamationTriangle, FaIdCard, FaBoxOpen, FaBell } from 'react-icons/fa';
 import { scrollToSection, SCROLL_TARGETS } from '../utils/scrollNavigation';
 import '../css/Home.css';
 
 function Home() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location?.state?.scrollTo) {
@@ -59,6 +60,27 @@ function Home() {
       icon: <FaHeartbeat />,
       title: '24/7 Availability',
       description: 'Get medical guidance around the clock, even when healthcare facilities are closed or unavailable.'
+    }
+  ];
+
+  const emergencyFeatures = [
+    {
+      icon: <FaIdCard />,
+      title: 'Medical ID',
+      description: 'Store your medical information and emergency contacts for quick access during emergencies.',
+      onClick: () => navigate('/medical-id')
+    },
+    {
+      icon: <FaBoxOpen />,
+      title: 'Preparedness Kit',
+      description: 'Track your emergency supplies and stay prepared for any disaster situation.',
+      onClick: () => navigate('/preparedness-kit')
+    },
+    {
+      icon: <FaBell />,
+      title: 'Disaster Alerts',
+      description: 'Stay informed about emergencies and natural disasters in your area with real-time alerts.',
+      onClick: () => navigate('/disaster-alerts')
     }
   ];
 
@@ -139,6 +161,32 @@ function Home() {
                   title={feature.title}
                   description={feature.description}
                 />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Emergency Features Section */}
+        <section className="emergency-features-section">
+          <div className="container">
+            <SectionTitle 
+              title="Emergency Tools"
+              subtitle="Quick access to essential emergency features"
+            />
+            <div className="emergency-features-grid">
+              {emergencyFeatures.map((feature, index) => (
+                <div 
+                  key={index} 
+                  className="emergency-feature-card"
+                  onClick={feature.onClick}
+                >
+                  <div className="emergency-feature-icon">
+                    {feature.icon}
+                  </div>
+                  <h3 className="emergency-feature-title">{feature.title}</h3>
+                  <p className="emergency-feature-description">{feature.description}</p>
+                  <div className="emergency-feature-arrow">→</div>
+                </div>
               ))}
             </div>
           </div>
