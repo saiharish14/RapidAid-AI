@@ -1,0 +1,149 @@
+/**
+ * 404 Not Found Page Styles
+ * 
+ * Error page with healthcare theme.
+ * Clean layout with navigation back to home.
+ */
+
+.not-found-page {
+  flex-grow: 1;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-content {
+  text-align: center;
+  max-width: 600px;
+  padding: 3rem;
+}
+
+.error-icon {
+  font-size: 5rem;
+  color: #dc2626;
+  margin-bottom: 2rem;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
+.error-code {
+  font-size: 8rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0 0 1rem;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1;
+}
+
+.error-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin: 0 0 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.error-description {
+  font-size: 1.125rem;
+  color: #64748b;
+  line-height: 1.7;
+  margin: 0 0 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.home-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+}
+
+.button-icon {
+  font-size: 1.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .not-found-page {
+    padding: 3rem 0;
+  }
+
+  .not-found-content {
+    padding: 2rem;
+  }
+
+  .error-icon {
+    font-size: 4rem;
+  }
+
+  .error-code {
+    font-size: 6rem;
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+  }
+
+  .error-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .not-found-page {
+    padding: 2rem 0;
+  }
+
+  .not-found-content {
+    padding: 1.5rem;
+  }
+
+  .error-icon {
+    font-size: 3rem;
+  }
+
+  .error-code {
+    font-size: 4rem;
+  }
+
+  .error-title {
+    font-size: 1.25rem;
+  }
+
+  .error-description {
+    font-size: 0.95rem;
+  }
+
+  .home-button {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
