@@ -14,7 +14,6 @@ import {
   FaTrophy,
   FaLightbulb
 } from 'react-icons/fa';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import '../css/HealthDashboard.css';
 
 function HealthDashboard() {
@@ -286,10 +285,12 @@ function HealthDashboard() {
   const getHealthTrendsData = () => {
     if (reports.length === 0) return [];
     
-    return reports.slice(0, 10).reverse().map(report => ({
-      date: new Date(report.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-      confidence: report.confidence || 85,
-      riskLevel: (() => {
+    // Get last 7 analyses in chronological order (oldest to newest)
+    const last7Reports = reports.slice(0, 7).reverse();
+    
+    return last7Reports.map((report, index) => ({
+      label: `Analysis ${index + 1}`,
+      riskScore: (() => {
         const risk = getRiskLevel(report.severity);
         switch(risk) {
           case 'Critical': return 4;
@@ -498,36 +499,82 @@ function HealthDashboard() {
                   Health Trends Over Time
                 </h3>
                 <div className="chart-card full-width">
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={healthTrendsData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e3f2fd" />
-                      <XAxis dataKey="date" stroke="#64748b" />
-                      <YAxis stroke="#64748b" />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: '#fff', 
-                          border: '1px solid #e3f2fd',
-                          borderRadius: '8px'
-                        }}
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="confidence" 
-                        stroke="#1976d2" 
-                        strokeWidth={2}
-                        name="Confidence %"
-                        dot={{ fill: '#1976d2', strokeWidth: 2, r: 4 }}
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="riskLevel" 
-                        stroke="#F44336" 
-                        strokeWidth={2}
-                        name="Risk Level"
-                        dot={{ fill: '#F44336', strokeWidth: 2, r: 4 }}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
+                  {healthTrendsData.length > 0 ? (
+                    <div className="svg-chart-container">
+                      <svg viewBox="0 0 700 350" className="line-chart-svg" preserveAspectRatio="xMidYMid meet">
+                        {/* Grid lines and Y-axis labels */}
+                        {[1, 2, 3, 4].map((i) => (
+                          <g key={i}>
+                            <line
+                              x1="80"
+                              y1={300 - i * 60}
+                              x2="680"
+                              y2={300 - i * 60}
+                              stroke="#e3f2fd"
+                              strokeWidth="1"
+                            />
+                            <text
+                              x="70"
+                              y={305 - i * 60}
+                              textAnchor="end"
+                              fontSize="12"
+                              fill="#64748b"
+                              fontWeight="500"
+                            >
+                              {['Low', 'Moderate', 'High', 'Critical'][i - 1]}
+                            </text>
+                          </g>
+                        ))}
+                        
+                        {/* X-axis labels */}
+                        {healthTrendsData.map((d, i) => (
+                          <text
+                            key={i}
+                            x={80 + (i * (600 / (healthTrendsData.length - 1 || 1)))}
+                            y="325"
+                            textAnchor="middle"
+                            fontSize="11"
+                            fill="#64748b"
+                          >
+                            {d.label}
+                          </text>
+                        ))}
+                        
+                        {/* Line path */}
+                        <polyline
+                          fill="none"
+                          stroke="#1976d2"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          points={healthTrendsData.map((d, i) => {
+                            const x = 80 + (i * (600 / (healthTrendsData.length - 1 || 1)));
+                            const y = 300 - (d.riskScore * 60);
+                            return `${x},${y}`;
+                          }).join(' ')}
+                        />
+                        
+                        {/* Data points */}
+                        {healthTrendsData.map((d, i) => {
+                          const x = 80 + (i * (600 / (healthTrendsData.length - 1 || 1)));
+                          const y = 300 - (d.riskScore * 60);
+                          return (
+                            <circle
+                              key={i}
+                              cx={x}
+                              cy={y}
+                              r="6"
+                              fill="#1976d2"
+                              stroke="#fff"
+                              strokeWidth="2"
+                            />
+                          );
+                        })}
+                      </svg>
+                    </div>
+                  ) : (
+                    <p className="no-data-placeholder">Complete more analyses to view trends</p>
+                  )}
                 </div>
               </section>
 
@@ -541,66 +588,109 @@ function HealthDashboard() {
                   {/* Top Conditions */}
                   <div className="diagnosis-card">
                     <h4 className="diagnosis-card-title">Top 5 Conditions</h4>
-                    <div className="diagnosis-list">
-                      {topConditions.map((item, index) => (
-                        <div key={index} className="diagnosis-item">
-                          <span className="diagnosis-rank">#{index + 1}</span>
-                          <span className="diagnosis-name">{item.condition?.substring(0, 25)}...</span>
-                          <span className="diagnosis-count">{item.count}x</span>
+                    {topConditions.length > 0 ? (
+                      <>
+                        {topConditions.length === 1 && (
+                          <p className="conditions-subtitle">
+                            Only one unique condition found from {stats.totalAnalyses} {stats.totalAnalyses === 1 ? 'analysis' : 'analyses'}.
+                          </p>
+                        )}
+                        <div className="diagnosis-list">
+                          {topConditions.map((item, index) => {
+                            const percentage = Math.round((item.count / stats.totalAnalyses) * 100);
+                            return (
+                              <div key={index} className="diagnosis-item">
+                                <span className="diagnosis-rank">#{index + 1}</span>
+                                <div className="diagnosis-info">
+                                  <span className="diagnosis-name">{item.condition?.substring(0, 30)}...</span>
+                                  <div className="progress-bar-container">
+                                    <div 
+                                      className="progress-bar-fill"
+                                      style={{ width: `${percentage}%` }}
+                                    ></div>
+                                  </div>
+                                </div>
+                                <div className="diagnosis-stats">
+                                  <span className="diagnosis-count">{item.count}x</span>
+                                  <span className="diagnosis-percentage">{percentage}%</span>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-                      ))}
-                    </div>
+                      </>
+                    ) : (
+                      <p className="no-data-placeholder">Complete more analyses to view conditions</p>
+                    )}
                   </div>
 
                   {/* Top Symptoms */}
                   <div className="diagnosis-card">
                     <h4 className="diagnosis-card-title">Frequent Symptoms</h4>
-                    <div className="diagnosis-list">
-                      {topSymptoms.map((item, index) => (
-                        <div key={index} className="diagnosis-item">
-                          <span className="diagnosis-rank">#{index + 1}</span>
-                          <span className="diagnosis-name">{item.symptom}</span>
-                          <span className="diagnosis-count">{item.count}x</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Risk Distribution Pie Chart */}
-                  <div className="diagnosis-card">
-                    <h4 className="diagnosis-card-title">Risk Distribution</h4>
-                    <div className="pie-chart-container">
-                      <ResponsiveContainer width="100%" height={200}>
-                        <PieChart>
-                          <Pie
-                            data={riskDistributionData}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={40}
-                            outerRadius={70}
-                            paddingAngle={5}
-                            dataKey="value"
-                          >
-                            {riskDistributionData.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={getRiskColor(entry.name)} />
-                            ))}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      </ResponsiveContainer>
-                      <div className="pie-legend">
-                        {riskDistributionData.map((entry) => (
-                          <div key={entry.name} className="legend-item">
-                            <span 
-                              className="legend-color" 
-                              style={{ backgroundColor: getRiskColor(entry.name) }}
-                            ></span>
-                            <span className="legend-label">{entry.name}</span>
-                            <span className="legend-value">{Math.round((entry.value / stats.totalAnalyses) * 100)}%</span>
+                    {topSymptoms.length > 0 ? (
+                      <div className="diagnosis-list symptoms-list">
+                        {topSymptoms.map((item, index) => (
+                          <div key={index} className="diagnosis-item">
+                            <span className="diagnosis-rank">#{index + 1}</span>
+                            <div className="diagnosis-info">
+                              <span className="diagnosis-name">{item.symptom}</span>
+                            </div>
+                            <span className="diagnosis-count">{item.count}x</span>
                           </div>
                         ))}
                       </div>
-                    </div>
+                    ) : (
+                      <p className="no-data-placeholder">Complete more analyses to view symptoms</p>
+                    )}
+                  </div>
+
+                  {/* Risk Distribution */}
+                  <div className="diagnosis-card">
+                    <h4 className="diagnosis-card-title">Risk Distribution</h4>
+                    {riskDistributionData.some(entry => entry.value > 0) ? (
+                      <>
+                        <p className="risk-subtitle">Distribution of analysis severity across all reports</p>
+                        <div className="risk-bars-container">
+                          {riskDistributionData.map((entry) => {
+                            const percentage = Math.round((entry.value / stats.totalAnalyses) * 100);
+                            return (
+                              <div key={entry.name} className="risk-bar-item">
+                                <div className="risk-bar-info">
+                                  <span className="risk-bar-label">{entry.name}</span>
+                                  <span className="risk-bar-percentage">{percentage}%</span>
+                                </div>
+                                <div className="risk-bar-track">
+                                  <div 
+                                    className="risk-bar-fill"
+                                    style={{ 
+                                      width: `${percentage}%`,
+                                      backgroundColor: getRiskColor(entry.name)
+                                    }}
+                                  ></div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div className="risk-footer">
+                          <div className="risk-footer-item">
+                            <span className="risk-footer-label">Total Analyses</span>
+                            <span className="risk-footer-value">{stats.totalAnalyses}</span>
+                          </div>
+                          <div className="risk-footer-item">
+                            <span className="risk-footer-label">Dominant Risk</span>
+                            <span 
+                              className="risk-footer-value" 
+                              style={{ color: getRiskColor(stats.highestRisk) }}
+                            >
+                              {stats.highestRisk}
+                            </span>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <p className="no-data-placeholder">Complete more analyses to view risk distribution</p>
+                    )}
                   </div>
                 </div>
               </section>

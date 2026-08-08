@@ -15,11 +15,15 @@ db = SQLAlchemy()
 
 def get_database_uri():
     """
-    Get the database URI for SQLite.
+    Get the database URI.
     
     Returns:
-        str: SQLite database URI pointing to backend/database/rapidaid.db
+        str: PostgreSQL URI from DATABASE_URL environment variable if available,
+             otherwise SQLite database URI pointing to backend/database/rapidaid.db
     """
+    database_url = os.getenv('DATABASE_URL')
+    if database_url:
+        return database_url
     db_path = os.path.join(BASE_DIR, 'database', 'rapidaid.db')
     return f'sqlite:///{db_path}'
 
