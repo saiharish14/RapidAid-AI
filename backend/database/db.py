@@ -23,6 +23,8 @@ def get_database_uri():
     """
     database_url = os.getenv('DATABASE_URL')
     if database_url:
+        if database_url.startswith('postgresql://'):
+            database_url = database_url.replace('postgresql://', 'postgresql+psycopg://', 1)
         return database_url
     db_path = os.path.join(BASE_DIR, 'database', 'rapidaid.db')
     return f'sqlite:///{db_path}'
